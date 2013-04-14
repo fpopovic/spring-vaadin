@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd         
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd         
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd         
+       http://www.springframework.org/schema/jee 
+       http://www.springframework.org/schema/jee/spring-jee-3.1.xsd         
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+       http://www.springframework.org/schema/jdbc 
+       http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+	<context:spring-configured></context:spring-configured>
+	
+	<context:component-scan base-package="com.fpopovic"></context:component-scan>
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/hyperoptic">
+		</property>
+		<property name="password" value="Fp783706"></property>
+		<property name="username" value="root"></property>
+	</bean>
+<!-- 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="show_sql">true</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.fpopovic.model.HoCompany</value>
+				<value>com.fpopovic.model.HoCustomer</value>
+				<value>com.fpopovic.model.HoInvoice</value>
+				<value>com.fpopovic.model.HoInvoicerow</value>
+				<value>com.fpopovic.model.HoProduct</value>
+				<value>com.fpopovic.model.HoVat</value>
+			</list>
+		</property>
+	</bean>
+<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<tx:annotation-driven transaction-manager="txManager"/>
+ -->	
+<bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
+        <property name="persistenceUnitName" value="persistenceUnit"/>
+        <property name="dataSource" ref="dataSource"/>
+				 <property name="jpaVendorAdapter">
+          <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>        
+    </bean>
+
+</beans>
