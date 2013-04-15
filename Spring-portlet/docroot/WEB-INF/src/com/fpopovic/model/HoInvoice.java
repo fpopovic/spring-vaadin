@@ -47,17 +47,17 @@ public class HoInvoice implements Serializable {
 	private Date toBePaidDate;
 
 	//bi-directional many-to-one association to HoCompany
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="company_Id", nullable=false)
 	private HoCompany hoCompany;
 
 	//bi-directional many-to-one association to HoCustomer
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="customerId", nullable=false)
 	private HoCustomer hoCustomer;
 
 	//bi-directional many-to-one association to HoInvoicerow
-	@OneToMany(mappedBy="hoInvoice", cascade={CascadeType.ALL})
+	@OneToMany(mappedBy="hoInvoice", fetch=FetchType.EAGER ,cascade={CascadeType.ALL})
 	private List<HoInvoicerow> hoInvoicerows;
 
 	public HoInvoice() {

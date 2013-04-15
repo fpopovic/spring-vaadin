@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fpopovic.model.HoCompany;
 
-
 public interface HoCompanyService {
 
 	

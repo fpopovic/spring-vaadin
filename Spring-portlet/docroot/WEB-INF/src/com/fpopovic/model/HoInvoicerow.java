@@ -34,17 +34,17 @@ public class HoInvoicerow implements Serializable {
 	private Double rowTaxAmount;
 
 	//bi-directional many-to-one association to HoInvoice
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="invoiceId", nullable=false)
 	private HoInvoice hoInvoice;
 
 	//bi-directional many-to-one association to HoProduct
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="productId", nullable=false)
 	private HoProduct hoProduct;
 
 	//bi-directional many-to-one association to HoVat
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="vatId", nullable=false)
 	private HoVat hoVat;
 
