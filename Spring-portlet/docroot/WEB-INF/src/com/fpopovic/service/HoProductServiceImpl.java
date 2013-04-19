@@ -33,4 +33,13 @@ public class HoProductServiceImpl implements HoProductService {
 		return repository.findOne(id);
 	}
 
+	@Override
+	public boolean saveByNameAndPrice(String productName, Double productPrice) {
+		HoProduct model = new HoProduct();
+		model.setProductName(productName);
+		model.setProductValue(productPrice);
+		repository.save(model);
+		return true;
+	}
+
 }

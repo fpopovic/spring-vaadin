@@ -33,4 +33,17 @@ public class HoCustomerServiceImpl implements HoCustomerService {
 		return repository.findOne(id);
 	}
 
+	@Override
+	public boolean saveCustomerByNameAddressPhoneEmail(String name,
+			String address, String phone, String email) {
+		HoCustomer model = new HoCustomer();
+		model.setCustomerName(name);
+		model.setCustomerAddress(address);
+		model.setCustomerPhone(phone);
+		model.setCustomerEmail(email);
+		
+		repository.save(model);
+		return true;
+	}
+
 }

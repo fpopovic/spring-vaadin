@@ -8,4 +8,5 @@ public interface HoProductService {
 	
 	public List<HoProduct> getAllproducts();
 	public HoProduct findProductById(Long id);
+	public boolean saveByNameAndPrice(String productName,Double productPrice);
 }

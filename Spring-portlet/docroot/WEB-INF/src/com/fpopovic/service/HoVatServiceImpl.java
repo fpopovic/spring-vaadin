@@ -34,4 +34,12 @@ public class HoVatServiceImpl implements HoVatService {
 		return repository.findOne(id);
 	}
 
+	@Override
+	public void saveVatByParams(String vatType, Float percentage) {
+		HoVat model = new HoVat();
+		model.setVatType(vatType);
+		model.setVatPercentage(percentage);
+		repository.save(model);
+	}
+
 }

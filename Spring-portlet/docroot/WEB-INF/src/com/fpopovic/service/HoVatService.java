@@ -8,4 +8,5 @@ public interface HoVatService {
 	
 	public List<HoVat> getAllVats();
 	public HoVat findVatById(Long id);
+	public void saveVatByParams(String vatType,Float percentage);
 }

@@ -1,45 +1,41 @@
 package com.fpopovic.vaadin.ui;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fpopovic.model.HoInvoice;
-import com.vaadin.data.util.BeanItemContainer;
+import com.fpopovic.vaadin.SpringApplication;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
 /**
  * @author fp
  * Not in the spring scope
+ * Invoices table (list all invoices in db )
  */
-public class InvoiceTable extends Table{
+public class InvoiceTable extends Table {
 
 	private static final long serialVersionUID = 2037494583263913656L;
-
-	
+	private SpringApplication springApp;
+	private InvoiceContainer beanContainer = new InvoiceContainer();
 /**
  * Constructor in charge of table creation and data population 
  */
-public InvoiceTable(List<HoInvoice> listOfInvoices) {
-	//Define column names and type
-	this.addContainerProperty("Customer", String.class, null);
-	this.addContainerProperty("Number", Double.class, null);
-	this.addContainerProperty("Vat", Double.class, null);
-	this.addContainerProperty("Amount", Double.class, null);
-	this.addContainerProperty("Date", Timestamp.class, null);
-	//Invoices container
-	BeanItemContainer<HoInvoice> beanContainer = new BeanItemContainer<HoInvoice>(HoInvoice.class);
- 	for (HoInvoice hoInvoice : listOfInvoices) {
-		beanContainer.addBean(hoInvoice);
-		this.addItem(new Object[]{	hoInvoice.getHoCustomer().getCustomerName(),
-									hoInvoice.getInvoiceNumber(),
-									hoInvoice.getTaxAmount(),
-									hoInvoice.getInvoiceAmount(),
-									hoInvoice.getInvoiceDate()}
-											, hoInvoice.getInvoiceId());
-	}
+public InvoiceTable(List<HoInvoice> listOfInvoices,SpringApplication springApp) {
+	this.springApp = springApp;
+
+	beanContainer.addAll(listOfInvoices);
+ 	this.setContainerDataSource(beanContainer);
+ 	this.setVisibleColumns(InvoiceContainer.VISIBLE);
+ 	this.setColumnHeaders(InvoiceContainer.COL_HEADERS);
 	this.setCaption("Hyperoptic Invoices");
 	this.setPageLength(listOfInvoices.size());
+	this.addListener((ItemClickListener)springApp);
 	this.setSelectable(true);
 	this.setImmediate(true);
+}
+
+
+public SpringApplication getSpringApp() {
+	return springApp;
 }
 }

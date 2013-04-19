@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
+
 
 /**
  * The persistent class for the ho_company database table.
@@ -28,7 +30,7 @@ public class HoCompany implements Serializable {
 
 	@Column(length=255)
 	private String companyAddress;
-
+	@Email
 	@Column(length=150)
 	private String companyEmail;
 
